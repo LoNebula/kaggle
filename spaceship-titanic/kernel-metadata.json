@@ -1,15 +1,15 @@
 {
   "id": "shogomiyawaki/spaceship-titanic-2",
   "title": "INSERT_TITLE_HERE",
-  "code_file": "INSERT_CODE_FILE_PATH_HERE",
-  "language": "Pick one of: {python,r,rmarkdown}",
-  "kernel_type": "Pick one of: {script,notebook}",
+  "code_file": "spaceship-titanic_2.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
   "is_private": "true",
   "enable_gpu": "true",
   "enable_tpu": "false",
   "enable_internet": "true",
   "dataset_sources": [],
-  "competition_sources": [],
+  "competition_sources": ["spaceship-titanic"],
   "kernel_sources": [],
   "model_sources": []
 }
