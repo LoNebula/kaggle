@@ -1,11 +1,11 @@
 {
-  "id": "shogomiyawaki/INSERT_KERNEL_SLUG_HERE",
+  "id": "shogomiyawaki/spaceship-titanic-2",
   "title": "INSERT_TITLE_HERE",
   "code_file": "INSERT_CODE_FILE_PATH_HERE",
   "language": "Pick one of: {python,r,rmarkdown}",
   "kernel_type": "Pick one of: {script,notebook}",
   "is_private": "true",
-  "enable_gpu": "false",
+  "enable_gpu": "true",
   "enable_tpu": "false",
   "enable_internet": "true",
   "dataset_sources": [],
