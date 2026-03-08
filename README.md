@@ -1,24 +1,3 @@
-# kaggle
-
-# Build and Run the Container
-Run the following command to build the image from the Dockerfile and start the container in the background according to the settings in docker-compose.yml.
-```bash
-docker compose up --build -d
-```
-
-# Enter the Container
-To get a shell inside the running container, execute the following command.
-```bash
-docker compose exec app /bin/bash
-```
-
-# Verify GPU Access
-After entering the container, start Python and run the following code to check if PyTorch is correctly recognizing the GPU.
-```python
-import torch
-print(torch.cuda.is_available())
-```
-
 ```md
 # kaggle
 
@@ -45,11 +24,14 @@ print(torch.cuda.is_available())
 ```
 
 
-# Kaggle Setup in VSCode
+# Kaggle Setup in VSCode (Generic Workflow)
 
-## 1. Install Kaggle API inside the Container
+This section describes a generic workflow to use Kaggle with VSCode and Docker for any competition or dataset, not tied to a specific project.
 
-Inside the container, install the Kaggle API:
+
+## 1. Install Kaggle API Inside the Container
+
+Inside the container, install the Kaggle CLI:
 
 ```bash
 pip install kaggle
@@ -64,13 +46,12 @@ kaggle --version
 
 ## 2. Authenticate the Kaggle API
 
-First, obtain your API token from Kaggle:
-
-1. Open https://www.kaggle.com/account in your browser.
-2. In the “API” section, click “Create New API Token”.
+1. Log in to Kaggle in your browser and open your account page:  
+   https://www.kaggle.com/account
+2. In the **API** section, click **Create New API Token**.
 3. A file named `kaggle.json` will be downloaded.
 
-Make this `kaggle.json` visible to the container and place it where the Kaggle CLI expects it (inside the container home directory):
+Place `kaggle.json` where the CLI expects it inside the container:
 
 ```bash
 mkdir -p ~/.kaggle
@@ -85,128 +66,182 @@ kaggle competitions list | head
 ```
 
 
-## 3. (Optional) Download Competition Data Locally
+## 3. Download Data with Kaggle API (Optional)
 
-If you *do* want to download data into the container, use the competition slug (e.g., `spaceship-titanic`):
+If you are okay with storing data locally (inside the container), you can download competition data or general datasets.
+
+### 3.1 Competitions
+
+Let `<competition-slug>` be the competition identifier in the URL, e.g.:
+
+- `https://www.kaggle.com/competitions/titanic` → slug: `titanic`
+- `https://www.kaggle.com/competitions/spaceship-titanic` → slug: `spaceship-titanic` [web:123]
+
+List files:
 
 ```bash
-# List available files for the competition
-kaggle competitions files -c spaceship-titanic
-
-# Download all files to the current directory
-kaggle competitions download -c spaceship-titanic
-
-# Download into a specific folder (e.g., ./data)
-kaggle competitions download -c spaceship-titanic -p ./data
+kaggle competitions files -c <competition-slug>
 ```
 
-If you want to save storage, you can skip this step and use the Kaggle Notebook + VSCode workflow described next.
+Download all files to the current directory:
+
+```bash
+kaggle competitions download -c <competition-slug>
+```
+
+Download into a specific folder:
+
+```bash
+kaggle competitions download -c <competition-slug> -p ./data
+```
+
+Download a specific file:
+
+```bash
+kaggle competitions download -c <competition-slug> -f train.csv -p ./data
+```
 
 
-## 4. Use Kaggle Notebook + VSCode (No Local Dataset)
+### 3.2 Datasets
 
-To avoid downloading datasets locally, use Kaggle’s hosted environment for data and compute, and connect to it from VSCode.
+For general datasets, use the `owner/dataset-slug` form. You can copy the exact command from the “Copy API command” button on the Kaggle dataset page. [web:121][web:118]
+
+```bash
+kaggle datasets download -d <owner>/<dataset-slug> -p ./data
+```
+
+
+## 4. Use Kaggle Notebooks + VSCode (No Local Data)
+
+To avoid local storage usage and still enjoy VSCode, connect VSCode to a running Kaggle Jupyter server.
 
 ### 4.1 Start a Kaggle Notebook and Jupyter Server
 
-1. In your browser, go to Kaggle → **Notebooks** and create a new notebook or open an existing one for the target competition (e.g., Spaceship Titanic).
-2. In the notebook UI, click **Add data** and attach the competition dataset (e.g., `spaceship-titanic`) and any other required datasets.
-3. In the top-right corner, open the **Run** menu and choose **Kaggle Jupyter Server**, enabling GPU if needed.
-4. Wait for the Jupyter Server panel to show that the server is running.
+1. In a browser, go to Kaggle → **Notebooks** and create/open a notebook.
+2. Click **Add data** in the notebook and attach any required competition/datasets (this will mount them under `/kaggle/input/...`). [web:49][web:122]
+3. In the top-right, open the **Run** menu and select **Kaggle Jupyter Server**, enabling GPU if needed.
+4. Wait until the Jupyter Server panel shows the server is running. [web:49][web:112]
 
-### 4.2 Get the VSCode-Compatible Jupyter URL
 
-1. In the Jupyter Server panel on the right side of the Kaggle Notebook, locate the **VSCode compatible URL**.
-2. Copy this URL (it looks like `http://...:8888/?token=...`).
+### 4.2 Get the VSCode-Compatible URL
 
-### 4.3 Connect from VSCode to the Kaggle Jupyter Server
+1. In the Jupyter Server panel (right side of the notebook), find the **VSCode compatible URL**.
+2. Copy that URL (it looks like `http://<host>:8888/?token=...`). [web:28][web:113]
 
-1. In VSCode (inside the container or on your host), open your local `.ipynb` file (e.g., `spaceship-titanic_2.ipynb`).
+
+### 4.3 Connect from VSCode
+
+1. In VSCode (inside or outside the container), open any `.ipynb` you want to work on.
 2. Click **Select Kernel** in the top-right of the notebook editor.
-3. Choose **Existing Jupyter Server** (or similar wording).
-4. When prompted for a URL, paste the **VSCode compatible URL** copied from Kaggle.
-5. After connection, run the following cell to confirm you are using the Kaggle GPU:
+3. Choose **Existing Jupyter Server** (or similar), and when prompted, paste the VSCode-compatible URL from Kaggle. [web:28][web:26]
+4. After connecting, verify that the remote environment is active:
 
    ```python
    import torch
    print(torch.cuda.is_available())
    ```
 
-6. Load data directly from Kaggle’s filesystem:
+5. Load data from Kaggle’s mounted paths (generic example):
 
    ```python
    import pandas as pd
 
-   train = pd.read_csv("/kaggle/input/spaceship-titanic/train.csv")
-   test = pd.read_csv("/kaggle/input/spaceship-titanic/test.csv")
+   # Example for a competition:
+   df = pd.read_csv("/kaggle/input/competitions/<competition-slug>/train.csv")
+
+   # Example for an attached dataset:
+   # df = pd.read_csv("/kaggle/input/<dataset-folder>/data.csv")
    ```
 
-In this setup, datasets stay on Kaggle’s side; your local/container storage is not used for the competition data.
+In this mode, data lives on Kaggle; your local/container storage is not used for datasets. [web:105][web:49]
 
 
-## 5. Push a Notebook to Kaggle via the API
+## 5. Push Notebooks to Kaggle via Kaggle API
 
-You can also edit a notebook locally in VSCode and push it to Kaggle using the Kaggle API.
+You can keep notebooks in Git and push them to Kaggle programmatically using `kernel-metadata.json`. This works for any competition or dataset.
 
-### 5.1 Create `kernel-metadata.json`
+### 5.1 Initialize Kernel Metadata
 
-In your project directory (e.g., `/workspace/kaggle/spaceship-titanic`), initialize kernel metadata:
+In your project directory (per competition or per notebook), run:
 
 ```bash
 kaggle kernels init -p .
 ```
 
-Edit the generated `kernel-metadata.json` as follows (example):
+This generates a `kernel-metadata.json` template. Edit it to match your project:
 
 ```json
 {
-  "id": "shogomiyawaki/spaceship-titanic-2",
-  "title": "Spaceship Titanic 2",
-  "code_file": "spaceship-titanic_2.ipynb",
+  "id": "your-username/your-kernel-slug",
+  "title": "Your Kernel Title",
+  "code_file": "your-notebook.ipynb",
   "language": "python",
   "kernel_type": "notebook",
   "is_private": "true",
-  "enable_gpu": "true",
+  "enable_gpu": "false",
   "enable_tpu": "false",
-  "enable_internet": "true",
+  "enable_internet": "false",
   "dataset_sources": [],
-  "competition_sources": ["spaceship-titanic"],
+  "competition_sources": ["<competition-slug>"],
   "kernel_sources": [],
   "model_sources": []
 }
 ```
 
-Key fields:
+Notes: [web:122][web:125]
 
-- `id`: `username/kernel-slug`, unique per notebook.
-- `title`: Human-readable title shown on Kaggle.
-- `code_file`: The `.ipynb` file you want to push.
-- `competition_sources`: List of competition slugs (e.g., `"spaceship-titanic"`).
+- `id` must be unique per notebook: `username/slug`.
+- `title` is the human-readable title on Kaggle.
+- `code_file` is the `.ipynb` file to push.
+- `competition_sources`: list of competition slugs whose data you want mounted.
+- `dataset_sources`: list of dataset identifiers (`owner/dataset-slug`) if you want them mounted.
 
 
 ### 5.2 Push the Notebook
 
-Ensure `kernel-metadata.json` and your `.ipynb` file are in the same directory, then run:
+With `kernel-metadata.json` and the notebook in the same directory:
 
 ```bash
 kaggle kernels push -p .
 ```
 
-- On the first push, a new notebook is created on Kaggle.
-- Subsequent pushes create new versions of the same notebook (same `id`).
-- The command output will show the URL of the notebook, for example:
-
-  `https://www.kaggle.com/code/shogomiyawaki/spaceship-titanic-2`
+- On first push, a new notebook is created on Kaggle.
+- Subsequent pushes create new versions of the same notebook (same `id`). [web:118]
+- The CLI output will print the Kaggle URL of the notebook (you can open it to check status and run it in the browser).
 
 
-## 6. Typical Workflow
+## 6. Directory Layout Example
 
-1. Start the Docker container and open the project in VSCode (Remote Containers or similar).
+A generic layout for multiple competitions:
+
+```text
+kaggle-projects/
+├── <competition-a>/
+│   ├── kernel-metadata.json
+│   └── main-a.ipynb
+├── <competition-b>/
+│   ├── kernel-metadata.json
+│   └── main-b.ipynb
+└── README.md
+```
+
+Each competition folder has its own metadata and notebook(s). [web:122]
+
+
+## 7. Typical End-to-End Workflow
+
+1. Start the Docker container and open the project in VSCode.
 2. Inside the container:
    - Install and authenticate the Kaggle API.
-3. Choose one of:
-   - **Kaggle Notebook + VSCode connection**: edit and run notebooks in VSCode while data and compute stay on Kaggle.
-   - **Local download (optional)**: use `kaggle competitions download` for small datasets if local storage usage is acceptable.
-4. Edit your `.ipynb` in VSCode.
-5. Use `kernel-metadata.json` and `kaggle kernels push -p .` to publish/update the notebook on Kaggle when you want to share or get medals.
+3. Choose how to access data:
+   - **Remote only**: Use Kaggle Notebook + VSCode connection (no local data).
+   - **Local (optional)**: Use `kaggle competitions download` / `kaggle datasets download` for small or temporary data.
+4. Develop your notebook in VSCode.
+5. When ready to publish or version on Kaggle, configure `kernel-metadata.json` and run:
+
+   ```bash
+   kaggle kernels push -p .
+   ```
+
+6. Open the printed Kaggle URL to view, run, and share the notebook (and eventually earn medals).
 ```
