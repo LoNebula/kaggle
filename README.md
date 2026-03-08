@@ -1,4 +1,3 @@
-```md
 # kaggle
 
 
@@ -244,4 +243,3 @@ Each competition folder has its own metadata and notebook(s). [web:122]
    ```
 
 6. Open the printed Kaggle URL to view, run, and share the notebook (and eventually earn medals).
-```
