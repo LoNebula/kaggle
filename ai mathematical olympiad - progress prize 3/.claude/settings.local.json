@@ -9,7 +9,8 @@
       "Bash(python:*)",
       "Read(//c/Users/Shogo Miyawaki/**)",
       "Read(//c/Users/Shogo Miyawaki/.kaggle/**)",
-      "WebSearch"
+      "WebSearch",
+      "Bash(rm:*)"
     ]
   }
 }

@@ -7,8 +7,8 @@
   "is_private": "true",
   "enable_gpu": "true",
   "enable_tpu": "false",
-  "enable_internet": "true",
-  "dataset_sources": [],
+  "enable_internet": "false",
+  "dataset_sources": ["shogomiyawaki/deepseek-r1-distill-qwen-14b-awq"],
   "competition_sources": ["ai-mathematical-olympiad-progress-prize-3"],
   "kernel_sources": [],
   "model_sources": []
