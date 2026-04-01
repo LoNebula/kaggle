@@ -1,7 +1,7 @@
 {
-  "id": "shogomiyawaki/stanford-rna-3d-folding-2-1",
-  "title": "stanford-rna-3d-folding-2_1",
-  "code_file": "stanford-rna-3d-folding-2_1.ipynb",
+  "id": "shogomiyawaki/ai-mathematical-olympiad-progress-prize-3",
+  "title": "ai-mathematical-olympiad-progress-prize-3",
+  "code_file": "ai-mathematical-olympiad-progress-prize-3_1.ipynb",
   "language": "python",
   "kernel_type": "notebook",
   "is_private": "true",
@@ -9,7 +9,7 @@
   "enable_tpu": "false",
   "enable_internet": "true",
   "dataset_sources": [],
-  "competition_sources": ["stanford-rna-3d-folding-2"],
+  "competition_sources": ["ai-mathematical-olympiad-progress-prize-3"],
   "kernel_sources": [],
   "model_sources": []
 }
