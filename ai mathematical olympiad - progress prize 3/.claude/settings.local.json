@@ -3,7 +3,12 @@
     "allow": [
       "Bash(kaggle competitions:*)",
       "Bash(kaggle:*)",
-      "Bash(pip install:*)"
+      "Bash(pip install:*)",
+      "Bash(python -c \"import kaggle; print\\(kaggle.__version__\\)\")",
+      "Bash(python -c ':*)",
+      "Bash(python:*)",
+      "Read(//c/Users/Shogo Miyawaki/**)",
+      "Read(//c/Users/Shogo Miyawaki/.kaggle/**)"
     ]
   }
 }
