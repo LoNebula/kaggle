@@ -1,4 +1,6 @@
-{
+import json
+
+nb = {
  "cells": [
   {
    "cell_type": "markdown",
@@ -17,7 +19,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": null,
+   "execution_count": None,
    "id": "cell-imports",
    "metadata": {},
    "outputs": [],
@@ -44,7 +46,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": null,
+   "execution_count": None,
    "id": "cell-config",
    "metadata": {},
    "outputs": [],
@@ -91,7 +93,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": null,
+   "execution_count": None,
    "id": "cell-sandbox",
    "metadata": {},
    "outputs": [],
@@ -144,7 +146,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": null,
+   "execution_count": None,
    "id": "cell-prompts",
    "metadata": {},
    "outputs": [],
@@ -193,7 +195,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": null,
+   "execution_count": None,
    "id": "cell-model",
    "metadata": {},
    "outputs": [],
@@ -288,7 +290,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": null,
+   "execution_count": None,
    "id": "cell-tir",
    "metadata": {},
    "outputs": [],
@@ -383,7 +385,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": null,
+   "execution_count": None,
    "id": "cell-voting",
    "metadata": {},
    "outputs": [],
@@ -422,7 +424,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": null,
+   "execution_count": None,
    "id": "cell-pipeline",
    "metadata": {},
    "outputs": [],
@@ -487,7 +489,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": null,
+   "execution_count": None,
    "id": "cell-local-test",
    "metadata": {},
    "outputs": [],
@@ -520,7 +522,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": null,
+   "execution_count": None,
    "id": "cell-kaggle-run",
    "metadata": {},
    "outputs": [],
@@ -548,3 +550,8 @@
  "nbformat": 4,
  "nbformat_minor": 5
 }
+
+with open("ai-mathematical-olympiad-progress-prize-3_1.ipynb", "w", encoding="utf-8") as f:
+    json.dump(nb, f, ensure_ascii=False, indent=1)
+
+print("Notebook written OK")
