@@ -11,7 +11,10 @@ from pathlib import Path
 from collections import Counter
 from typing import List, Optional
 
-import torch
+try:
+    import torch
+except ImportError:
+    torch = None
 import pandas as pd
 
 IS_KAGGLE = Path('/kaggle/input').exists()
