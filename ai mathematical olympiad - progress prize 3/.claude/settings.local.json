@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(kaggle competitions:*)",
+      "Bash(kaggle:*)",
+      "Bash(pip install:*)"
+    ]
+  }
+}
