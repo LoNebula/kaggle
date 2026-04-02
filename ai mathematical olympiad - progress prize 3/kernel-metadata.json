@@ -1,5 +1,5 @@
 {
-  "id": "shogomiyawaki/ai-mathematical-olympiad-progress-prize-3",
+  "id": "shogomiyawaki/ai-mathematical-olympiad-progress-prize-3_1",
   "title": "ai-mathematical-olympiad-progress-prize-3_1",
   "code_file": "ai-mathematical-olympiad-progress-prize-3_1.ipynb",
   "language": "python",
@@ -8,7 +8,7 @@
   "enable_gpu": "true",
   "enable_tpu": "false",
   "enable_internet": "true",
-  "dataset_sources": [],
+  "dataset_sources": ["deepseek-ai/deepseek-r1-distill-qwen-7b"],
   "competition_sources": ["ai-mathematical-olympiad-progress-prize-3"],
   "kernel_sources": [],
   "model_sources": []
