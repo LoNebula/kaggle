@@ -1,14 +1,14 @@
 {
   "id": "shogomiyawaki/ai-mathematical-olympiad-progress-prize-3",
-  "title": "ai-mathematical-olympiad-progress-prize-3",
+  "title": "ai-mathematical-olympiad-progress-prize-3_1",
   "code_file": "ai-mathematical-olympiad-progress-prize-3_1.ipynb",
   "language": "python",
   "kernel_type": "notebook",
   "is_private": "true",
   "enable_gpu": "true",
   "enable_tpu": "false",
-  "enable_internet": "false",
-  "dataset_sources": ["ai-mathematical-olympiad-progress-prize-3/data"],
+  "enable_internet": "true",
+  "dataset_sources": [],
   "competition_sources": ["ai-mathematical-olympiad-progress-prize-3"],
   "kernel_sources": [],
   "model_sources": []
