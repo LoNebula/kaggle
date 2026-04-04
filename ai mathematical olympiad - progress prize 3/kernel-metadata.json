@@ -1,15 +1,18 @@
 {
   "id": "shogomiyawaki/ai-mathematical-olympiad-progress-prize-3-3",
-  "title": "ai-mathematical-olympiad-progress-prize-3-3",
+  "title": "AIMO3 Gold Medal Contender - SC-TIR Ensemble",
   "code_file": "ai-mathematical-olympiad-progress-prize-3-3.ipynb",
   "language": "python",
   "kernel_type": "notebook",
-  "is_private": "true",
-  "enable_gpu": "true",
-  "enable_tpu": "false",
-  "enable_internet": "true",
+  "is_private": true,
+  "enable_gpu": true,
+  "enable_tpu": false,
+  "enable_internet": true,
   "dataset_sources": [],
   "competition_sources": ["ai-mathematical-olympiad-progress-prize-3"],
   "kernel_sources": [],
-  "model_sources": []
+  "model_sources": [
+    "Qwen/Qwen2.5-Math-7B-Instruct/pytorch/model/1",
+    "deepseek-ai/DeepSeek-Math-7B-Instruct/pytorch/model/1"
+  ]
 }
