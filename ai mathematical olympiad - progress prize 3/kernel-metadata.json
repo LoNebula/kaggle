@@ -12,8 +12,8 @@
   "competition_sources": ["ai-mathematical-olympiad-progress-prize-3"],
   "kernel_sources": [],
   "model_sources": [
-    "deepseek-ai/deepseek-math/pytorch/deepseek-math-7b-instruct",
-    "qwen-lm/qwen-3-5/transformers/qwen3.5-27b",
-    "qwen-lm/qwen2.5-math/transformers/7b"
+    "deepseek-ai/deepseek-math/pytorch/deepseek-math-7b-instruct/1",
+    "qwen-lm/qwen-3/transformers/14b/1",
+    "qwen-lm/qwen2.5-math/transformers/7b/1"
   ]
 }
