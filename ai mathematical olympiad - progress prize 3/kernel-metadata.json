@@ -1,6 +1,6 @@
 {
   "id": "shogomiyawaki/ai-mathematical-olympiad-progress-prize-3-3",
-  "title": "AIMO3 Gold Medal — vLLM + Qwen3-32B Thinking + TIR Ensemble",
+  "title": "ai-mathematical-olympiad-progress-prize-3-3",
   "code_file": "ai-mathematical-olympiad-progress-prize-3-3.ipynb",
   "language": "python",
   "kernel_type": "notebook",
